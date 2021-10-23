@@ -1,1 +1,2 @@
-# chemical-name-cas-smiles-processing
+# Looking for chemical names, CAS numbers, and SMILES strings
+
