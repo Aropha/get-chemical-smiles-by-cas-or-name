@@ -36,7 +36,7 @@ pip install cirpy
 For more info about CIRpy, please refer to https://github.com/mcs07/CIRpy.
 
 ## Website http://cactus.nci.nih.gov/
-The website `http://cactus.nci.nih.gov/` is another powerful and easy-to-use source for looking for SMILES strings if CAS numbers are given. To use it, simply add the CAS number in the url as shown below. Then open the url with `urllib.request.urlopen`, and the decoded content would then be the SMILES string.
+The website http://cactus.nci.nih.gov/ is another powerful and easy-to-use source for looking for SMILES strings if CAS numbers are given. To use it, simply add the CAS number in the url as shown below. Then open the url with `urllib.request.urlopen`, and the decoded content would then be the SMILES string.
 
 ```
 >>> from urllib.request import urlopen
@@ -48,9 +48,9 @@ The website `http://cactus.nci.nih.gov/` is another powerful and easy-to-use sou
 ```
 
 ## Website https://echa.europa.eu/
-The website `https://echa.europa.eu/` is another useful source we have been using. To use it, we first go to the address `https://echa.europa.eu/advanced-search-for-chemicals?p_p_id=dissadvancedsearch_WAR_disssearchportlet&p_p_lifecycle=0&p_p_col_id=column-1&p_p_col_count=1` using the library `selenium`. Then use the `find_element_by_xpath` command to find the search box, and input the CAS number into the search box. Upon submit, we follow a few more steps to extract the SMILES string (if available) mainly using `selenium` and `re` (regular expression) to identify the target content. 
+The website `https://echa.europa.eu/` is another useful source we have been using. To use it, we first go to the address https://echa.europa.eu/advanced-search-for-chemicals?p_p_id=dissadvancedsearch_WAR_disssearchportlet&p_p_lifecycle=0&p_p_col_id=column-1&p_p_col_count=1 using the library `selenium`. Then use the `find_element_by_xpath` command to find the search box, and input the CAS number into the search box. Upon submit, we follow a few more steps to extract the SMILES string (if available) mainly using `selenium` and `re` (regular expression) to identify the target content. 
 
 These steps control the automatic opening and closing of the web brower, which usually takes some time to get the job done. For more information, please refer to the JupyterNotebook **`get-chemical-smiles-by-cas-or-name.ipynb`** in the `code` folder .
 
 ## Website http://www.ambinter.com/
-Similarly, we can also scrape the website `http://www.ambinter.com/` following the same steps to get the SIMLES strings based on CAS numbers. Details can be found in the JupyterNotebook **`get-chemical-smiles-by-cas-or-name.ipynb`** in the `code` folder .
+Similarly, we can also scrape the website http://www.ambinter.com/search/ following the same steps to get the SIMLES strings based on CAS numbers. Details can be found in the JupyterNotebook **`get-chemical-smiles-by-cas-or-name.ipynb`** in the `code` folder .
