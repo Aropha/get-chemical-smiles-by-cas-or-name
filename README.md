@@ -50,7 +50,38 @@ The website http://cactus.nci.nih.gov/ is another powerful and easy-to-use sourc
 ## Website https://echa.europa.eu/
 The website `https://echa.europa.eu/` is another useful source we have been using. To use it, we first go to the address https://echa.europa.eu/advanced-search-for-chemicals?p_p_id=dissadvancedsearch_WAR_disssearchportlet&p_p_lifecycle=0&p_p_col_id=column-1&p_p_col_count=1 using the library `selenium`. Then use the `find_element_by_xpath` command to find the search box, and input the CAS number into the search box. Upon submit, we follow a few more steps to extract the SMILES string (if available) mainly using `selenium` and `re` (regular expression) to identify the target content. 
 
-These steps control the automatic opening and closing of the web brower, which usually takes some time to get the job done. For more information, please refer to the JupyterNotebook **`get-chemical-smiles-by-cas-or-name.ipynb`** in the `code` folder .
+These steps control the automatic opening and closing of the web brower, which usually takes some time to get the job done. For more information, please refer to the JupyterNotebook **`get-chemical-smiles-by-cas-or-name.ipynb`** in the `code` folder.
 
 ## Website http://www.ambinter.com/
-Similarly, we can also scrape the website http://www.ambinter.com/search/ following the same steps to get the SIMLES strings based on CAS numbers. Details can be found in the JupyterNotebook **`get-chemical-smiles-by-cas-or-name.ipynb`** in the `code` folder .
+Similarly, we can also scrape the website http://www.ambinter.com/search/ following the same steps to get the SIMLES strings based on CAS numbers. Details can be found in the JupyterNotebook **`get-chemical-smiles-by-cas-or-name.ipynb`** in the `code` folder. For example:
+
+```
+from urllib.request import urlopen
+from selenium import webdriver
+
+
+url = "http://www.ambinter.com/search/"
+CAS = '108-95-2'
+driver = webdriver.Chrome(ChromeDriverManager().install())
+driver.get(url)
+search_box = driver.find_element_by_id("quick_search_input")
+search_box.send_keys(CAS)
+search_box.submit()
+try:
+    links = driver.find_elements_by_xpath('//*[@id="resultArea"]/div[2]/div/table/tbody/tr/td[1]/a')
+    href = links[0].get_attribute("href")
+    website = urlopen(href).read().decode('utf8')
+    details = re.search(r'<th>Smiles</th><td>.*', website)
+    details = details.group(0)
+    smiles = details[details.find('</th><td>') + 9: -5]
+    print(smiles)
+    driver.close()
+    
+except:
+    driver.close()
+    print('No results found')
+```
+The output would then be
+
+![image](https://user-images.githubusercontent.com/70991409/138579421-dba691df-a638-4d58-86d2-16770c7bb9e6.png)
+
